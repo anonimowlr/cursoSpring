@@ -39,6 +39,14 @@ public class CategoriaRestService {
         return  categoriaRepository.findAll();
         
     }
+
+    public Categoria salvarCategoriaRest(Categoria categoria) {
+            categoria.setId(null);
+           return categoriaRepository.save(categoria);
+
+
+
+    }
     
     
     

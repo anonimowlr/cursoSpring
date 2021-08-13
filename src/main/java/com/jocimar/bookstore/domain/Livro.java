@@ -1,5 +1,6 @@
 package com.jocimar.bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import lombok.Data;
 
@@ -19,7 +20,8 @@ public class Livro implements  Serializable{
     private String titulo;
     private String nomeAutor;
     private String texto;
-
+    
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
     private Categoria categoria;

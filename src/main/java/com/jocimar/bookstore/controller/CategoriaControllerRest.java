@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,7 @@ public class CategoriaControllerRest {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Categoria> listar(@PathVariable Long id) {
 
-        Categoria cat = categoriaRestService.findById(id);
+        Categoria cat = categoriaRestService.localizaCategoriaPorIdRest(id);
 
         return ResponseEntity.ok().body(cat);
 
@@ -63,6 +64,24 @@ public class CategoriaControllerRest {
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/categorias/{id}").buildAndExpand(categoria.getId()).toUri();
         //return ResponseEntity.created(uri).build(); // retorna so a uri com o objeto criado
          return ResponseEntity.created(uri).body(categoria); // retorna o objeto ao corpo da resposta
+    }
+    
+    
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<CategoriaDto> atualizaCatagoriaRest(@PathVariable Long id, @RequestBody CategoriaDto categoriaDto){
+        
+        Categoria categoriaAtualizada = categoriaRestService.atualiza(id,categoriaDto);
+        
+        
+        
+        
+        return ResponseEntity.ok().body(new CategoriaDto(categoriaAtualizada));
+        
+        
+        
+        
+        
+        
     }
 
 

@@ -6,6 +6,7 @@
 package com.jocimar.bookstore.service;
 
 import com.jocimar.bookstore.domain.Categoria;
+import com.jocimar.bookstore.dtos.CategoriaDto;
 import com.jocimar.bookstore.repository.CategoriaRepository;
 import com.jocimar.bookstore.service.exceptions.ObjectNotFoundExpection;
 import java.util.List;
@@ -25,7 +26,7 @@ public class CategoriaRestService {
     private CategoriaRepository categoriaRepository;
     
     
-    public Categoria    findById(Long id){
+    public Categoria    localizaCategoriaPorIdRest(Long id){
         
         Optional<Categoria> categoria = categoriaRepository.findById(id);
         
@@ -45,6 +46,18 @@ public class CategoriaRestService {
            return categoriaRepository.save(categoria);
 
 
+
+    }
+
+    public Categoria atualiza(Long id, CategoriaDto categoriaDto) {
+
+      Categoria categoria =   localizaCategoriaPorIdRest(id);
+      
+      
+      categoria.setDescricao(categoriaDto.getDescricao());
+      categoria.setNome(categoriaDto.getNome());
+      
+     return categoriaRepository.save(categoria);
 
     }
     

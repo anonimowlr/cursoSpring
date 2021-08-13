@@ -14,7 +14,7 @@
     </head>
     <body>
         <header th:insert="fragments/geral.html :: header"> </header>
-
+        <h2>[[${message}]]</h2>
 
         <div th:switch="${message}">
             <div th:case="'Success'" class="alert alert-success">
@@ -26,7 +26,6 @@
         </div>
 
         <a href="#">ir</a>
-        <a href="/categoria">categoria</a>
 
 
 
@@ -49,20 +48,12 @@
                         <div class="card-body">
 
                             <div class="container"  >
-                                <h1>Dados do Livro</h1>
+                                <h1>Dados da  Categoria</h1>
                             </div>
-                            <form action="/add" method="POST" class="form">
-                                <input type="text" name="nomeAutor" id="nomeAutor" class="form form-control mt-4" placeholder="nome autor"/>
-                                <input type="text" name="titulo" id="titulo" class="form form-control mt-4" placeholder="titulo"/>
-                                <textarea type="text" name="texto" id="texto" class="form form-control mt-4" placeholder="conteúdo do livro" ></textarea>
+                            <form action="/categoria/add" method="POST" class="form">
+                                <input type="text" name="nome" id="nome" class="form form-control mt-4" placeholder="nome categoria"/>
+                                <input type="text" name="descricao" id="descricao" class="form form-control mt-4" placeholder="descrição"/>
 
-
-                                <select   id="cidade" name="categoria" class="form-control mt-4">
-                                    <option th:each="l : ${listaCategoria}"
-
-                                            th:value="${l.id}"
-                                            th:text="${l.nome}">Part name</option>
-                                </select>
 
                                 <button type="submit" class="btn btn-primary mt-4" >enviar</button>
                             </form>

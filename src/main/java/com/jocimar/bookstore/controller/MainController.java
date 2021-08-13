@@ -74,15 +74,15 @@ public class MainController {
             
            
             livroRepository.save(livro); 
-            String message = "Success";
-             model.addAttribute("message",message);
+
+            
              model.addAttribute("listaCategoria", categoriaRepository.findAll());
              redirectAttributes.addFlashAttribute("message", "Success");
              return "redirect:/";
         } catch (Exception e) {
             model.addAttribute("erro",e.toString());
-            String message = "Failed";
-            model.addAttribute("message",message);
+
+
             model.addAttribute("listaCategoria", categoriaRepository.findAll());
             redirectAttributes.addFlashAttribute("message", "Failed");
             return "redirect:/";

@@ -1,7 +1,6 @@
 package com.jocimar.bookstore.domain;
 
 import java.io.Serializable;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;

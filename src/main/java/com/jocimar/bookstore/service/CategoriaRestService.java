@@ -7,6 +7,8 @@ package com.jocimar.bookstore.service;
 
 import com.jocimar.bookstore.domain.Categoria;
 import com.jocimar.bookstore.repository.CategoriaRepository;
+import com.jocimar.bookstore.service.exceptions.ObjectNotFoundExpection;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,10 +29,16 @@ public class CategoriaRestService {
         
         Optional<Categoria> categoria = categoriaRepository.findById(id);
         
-        return categoria.orElse(null);
+        return categoria.orElseThrow(()-> new ObjectNotFoundExpection("Objeto não encontrado" + id + "Tipo:" + Categoria.class.getName()));
         
     }
     
+    
+    public List<Categoria> listarCategoriaService(){
+        
+        return  categoriaRepository.findAll();
+        
+    }
     
     
     

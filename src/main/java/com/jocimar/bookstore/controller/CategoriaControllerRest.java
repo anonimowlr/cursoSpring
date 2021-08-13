@@ -6,9 +6,12 @@
 package com.jocimar.bookstore.controller;
 
 import com.jocimar.bookstore.domain.Categoria;
+import com.jocimar.bookstore.dtos.CategoriaDto;
 import com.jocimar.bookstore.repository.CategoriaRepository;
 import com.jocimar.bookstore.service.CategoriaRestService;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,5 +42,17 @@ public class CategoriaControllerRest {
         return ResponseEntity.ok().body(cat);
         
     } 
+    
+    
+    @GetMapping("/listar")
+    public ResponseEntity<List<CategoriaDto>> listarTodos(){
+        
+        List<Categoria> categorias = categoriaRestService.listarCategoriaService();
+        List<CategoriaDto> categoriasDto =  categorias.stream().map(cat -> new CategoriaDto(cat)).collect(Collectors.toList());
+        
+        
+        
+        return ResponseEntity.ok().body(categoriasDto);
+    }
     
 }

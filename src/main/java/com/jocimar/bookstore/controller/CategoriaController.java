@@ -31,7 +31,7 @@ public class CategoriaController {
         try{
             categoriaRepository.save(categoria);
             redirectAttributes.addFlashAttribute("message", "Success");
-            return "redirect:/";
+            return "redirect:/categorias/listar";
         } catch (Exception e){
             redirectAttributes.addFlashAttribute("message", e.toString());
             return "error";

@@ -1,6 +1,5 @@
 package com.jocimar.bookstore.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,7 +18,7 @@ public class Categoria implements Serializable {
     private String nome;
     private String descricao;
 
-    @OneToMany(mappedBy = "categoria",fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "categoria")
     private List<Livro> livros = new ArrayList<>();
 
     public Categoria() {

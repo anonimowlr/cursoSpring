@@ -5,6 +5,7 @@
  */
 package com.jocimar.bookstore.controller.exceptions;
 
+import com.jocimar.bookstore.service.exceptions.ErroIntegridade;
 import com.jocimar.bookstore.service.exceptions.ObjectNotFoundExpection;
 import javax.servlet.ServletRequest;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,6 @@ public class ControllerExceptionHandler {
     
     
     @ExceptionHandler(ObjectNotFoundExpection.class)
-    
     public ResponseEntity<StandardError> objectNotFoudException(ObjectNotFoundExpection e, ServletRequest request){
         
         StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), e.getMessage());
@@ -33,5 +33,15 @@ public class ControllerExceptionHandler {
         
     }
     
+    
+     @ExceptionHandler(ErroIntegridade.class)
+    public ResponseEntity<StandardError> erroIntegridade(ErroIntegridade e, ServletRequest request){
+        
+        StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        
+        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        
+    }
     
 }

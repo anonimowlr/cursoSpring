@@ -8,10 +8,13 @@ package com.jocimar.bookstore.service;
 import com.jocimar.bookstore.domain.Categoria;
 import com.jocimar.bookstore.dtos.CategoriaDto;
 import com.jocimar.bookstore.repository.CategoriaRepository;
+import com.jocimar.bookstore.service.exceptions.ErroIntegridade;
 import com.jocimar.bookstore.service.exceptions.ObjectNotFoundExpection;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -64,7 +67,16 @@ public class CategoriaRestService {
     public void deletar(Long id) {
         
       Categoria categoria = categoriaRepository.getById(id);
-      categoriaRepository.delete(categoria);
+      
+        try {
+              categoriaRepository.delete(categoria);
+        } catch (DataIntegrityViolationException e) {
+            
+                throw new ErroIntegridade("Objeto não pode ser deletado");
+            
+            
+        }
+    
         
     }
     

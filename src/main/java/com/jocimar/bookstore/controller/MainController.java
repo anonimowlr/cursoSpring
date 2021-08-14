@@ -1,12 +1,10 @@
 package com.jocimar.bookstore.controller;
 
-import com.jocimar.bookstore.domain.Categoria;
 import com.jocimar.bookstore.domain.Livro;
 import com.jocimar.bookstore.repository.CategoriaRepository;
 import com.jocimar.bookstore.repository.LivroRepository;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,11 +72,12 @@ public class MainController {
             
            
             livroRepository.save(livro); 
+            System.out.println(livro.getId());
 
             
              model.addAttribute("listaCategoria", categoriaRepository.findAll());
              redirectAttributes.addFlashAttribute("message", "Success");
-             return "redirect:/";
+             return "redirect:/livros/"+livro.getId();
         } catch (Exception e) {
             model.addAttribute("erro",e.toString());
 

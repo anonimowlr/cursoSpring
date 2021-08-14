@@ -19,7 +19,7 @@ public class Categoria implements Serializable {
     private String nome;
     private String descricao;
 
-    @OneToMany(mappedBy = "categoria")
+    @OneToMany(mappedBy = "categoria",fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Livro> livros = new ArrayList<>();
 
     public Categoria() {

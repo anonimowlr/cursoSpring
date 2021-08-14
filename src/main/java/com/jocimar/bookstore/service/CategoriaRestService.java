@@ -60,6 +60,13 @@ public class CategoriaRestService {
      return categoriaRepository.save(categoria);
 
     }
+
+    public void deletar(Long id) {
+        
+      Categoria categoria = categoriaRepository.getById(id);
+      categoriaRepository.delete(categoria);
+        
+    }
     
     
     

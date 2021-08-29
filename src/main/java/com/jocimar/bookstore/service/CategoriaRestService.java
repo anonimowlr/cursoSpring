@@ -6,9 +6,15 @@
 package com.jocimar.bookstore.service;
 
 import com.jocimar.bookstore.domain.Categoria;
+import com.jocimar.bookstore.dtos.CategoriaDto;
 import com.jocimar.bookstore.repository.CategoriaRepository;
+import com.jocimar.bookstore.service.exceptions.ErroIntegridade;
+import com.jocimar.bookstore.service.exceptions.ObjectNotFoundExpection;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,14 +29,56 @@ public class CategoriaRestService {
     private CategoriaRepository categoriaRepository;
     
     
-    public Categoria    findById(Long id){
+    public Categoria    localizaCategoriaPorIdRest(Long id){
         
         Optional<Categoria> categoria = categoriaRepository.findById(id);
         
-        return categoria.orElse(null);
+        return categoria.orElseThrow(()-> new ObjectNotFoundExpection("Objeto não encontrado" + id + "Tipo:" + Categoria.class.getName()));
         
     }
     
+    
+    public List<Categoria> listarCategoriaService(){
+        
+        return  categoriaRepository.findAll();
+        
+    }
+
+    public Categoria salvarCategoriaRest(Categoria categoria) {
+            categoria.setId(null);
+           return categoriaRepository.save(categoria);
+
+
+
+    }
+
+    public Categoria atualiza(Long id, CategoriaDto categoriaDto) {
+
+      Categoria categoria =   localizaCategoriaPorIdRest(id);
+      
+      
+      categoria.setDescricao(categoriaDto.getDescricao());
+      categoria.setNome(categoriaDto.getNome());
+      
+     return categoriaRepository.save(categoria);
+
+    }
+
+    public void deletar(Long id) {
+        
+      Categoria categoria = categoriaRepository.getById(id);
+      
+        try {
+              categoriaRepository.delete(categoria);
+        } catch (DataIntegrityViolationException e) {
+            
+                throw new ErroIntegridade("Objeto não pode ser deletado");
+            
+            
+        }
+    
+        
+    }
     
     
     

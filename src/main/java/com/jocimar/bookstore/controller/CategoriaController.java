@@ -34,6 +34,7 @@ public class CategoriaController {
             return "redirect:/categorias/listar";
         } catch (Exception e){
             redirectAttributes.addFlashAttribute("message", e.toString());
+            System.out.println(e.toString());
             return "error";
 
         }
